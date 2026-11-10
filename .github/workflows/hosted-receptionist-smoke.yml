@@ -1,0 +1,20 @@
+name: Hosted receptionist synthetic smoke test
+on:
+  push:
+    paths:
+      - 'pilot-api/hosted-smoke.test.js'
+      - '.github/workflows/hosted-receptionist-smoke.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  hosted-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check deployed API with fictional data only
+        run: node pilot-api/hosted-smoke.test.js
